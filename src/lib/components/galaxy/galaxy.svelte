@@ -26,6 +26,6 @@
 </script>
 
 <Scene>
-	<Mesh mesh={particles} />
-	<Mesh mesh={star} />
+	<Mesh mesh={particles} postprocess/>
+	<Mesh mesh={star} postprocess/>
 </Scene>

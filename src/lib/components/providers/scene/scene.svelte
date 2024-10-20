@@ -18,7 +18,8 @@
 		setFuncPipelines,
 		setSceneReady,
 		setMouse,
-		setRaycaster
+		setRaycaster,
+		setPostprocessor,
 	} from './context';
 
 	/**
@@ -35,11 +36,6 @@
 	 */
 	let mouseTarget = null;
 
-	/**
-	 * @type {SelectiveBloom}
-	 */
-	let postprocessing;
-
 	const dispatch = createEventDispatcher();
 	let scene = setScene();
 	let sceneReady = setSceneReady();
@@ -47,6 +43,7 @@
 	let camera = setCamera();
 	let mouse = setMouse();
 	let raycaster = setRaycaster();
+	let postprocessor = setPostprocessor();
 	let controls = setControls();
 	let funcPipelines = setFuncPipelines();
 
@@ -65,7 +62,10 @@
 		if ($renderer) {
 			$renderer.setSize(width, height);
 		}
-		postprocessing.setSize(width, height);
+
+		if ($postprocessor) {
+			$postprocessor.setSize(width, height);
+		}
 		// labelRenderer.setSize(width, height);
 	};
 
@@ -150,7 +150,7 @@
 				// labelRenderer.domElement.style.pointerEvents = 'none';
 				// container.appendChild(labelRenderer.domElement);
 				addLighting($scene);
-				postprocessing = new SelectiveBloom($renderer, $scene, $camera, BLOOM_LAYER);
+				$postprocessor = new SelectiveBloom($renderer, $scene, $camera, BLOOM_LAYER);
 
 				$controls = new OrbitControls($camera, $renderer.domElement);
 				$controls.autoRotate = true;
@@ -172,9 +172,12 @@
 			};
 
 			const render = () => {
-				// Render scene
-				$renderer?.render($scene, $camera);
-				// postprocessing.render();
+				
+				if($postprocessor) {
+					$postprocessor.render();
+				} else {
+					$renderer?.render($scene, $camera);
+				}
 
 				// execute render functions
 				$funcPipelines.renderPipeline?.forEach((renderFunc) => {

@@ -38,6 +38,24 @@ export function getCamera() {
 }
 
 /**
+ * @return {import('svelte/store').Writable<undefined|null|import('$lib/utils/SelectiveBloom').SelectiveBloom>}
+ */
+export function setPostprocessor() {
+	/**
+	 * @type {import('svelte/store').Writable<undefined|null|import('$lib/utils/SelectiveBloom').SelectiveBloom>}
+	 */
+	let postprocessor = writable(undefined);
+	setContext('postprocessor', postprocessor);
+	return postprocessor;
+}
+/**
+ * @return {import('svelte/store').Writable<undefined|null|import('$lib/utils/SelectiveBloom').SelectiveBloom>}
+ */
+export function getPostprocessor() {
+	return getContext('postprocessor');
+}
+
+/**
  * @return {import('svelte/store').Writable<undefined|null|import('three/addons/controls/OrbitControls.js').OrbitControls>}
  */
 export function setControls() {

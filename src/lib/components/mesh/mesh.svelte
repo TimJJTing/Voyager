@@ -4,6 +4,7 @@
 		RAYCAST_LAYER,
 		getScene,
 		getFuncPipelines,
+		getPostprocessor
 	} from '$lib/components/providers/scene';
 
 	/**
@@ -18,14 +19,27 @@
 	 */
 	export let raycast = false;
 
+	/**
+	 * add to postprocess?
+	 * @type {boolean}
+	 */
+	export let postprocess = false;
+
 	let id = {};
 	let scene = getScene();
 	let funcPipelines = getFuncPipelines();
+	let postprocessor = getPostprocessor();
 
 	$: if (raycast) {
 		mesh.getMesh().layers.enable(RAYCAST_LAYER);
 	} else {
 		mesh.getMesh().layers.disable(RAYCAST_LAYER);
+	}
+
+	$: if (postprocess) {
+		$postprocessor?.add(mesh.getMesh());
+	} else {
+		$postprocessor?.remove(mesh.getMesh());
 	}
 
 	onMount(() => {
@@ -40,6 +54,8 @@
 
 	onDestroy(() => {
 		$funcPipelines.deregisterUpdateFunc(id);
+		$postprocessor?.remove(mesh.getMesh());
+		$scene?.remove(mesh.getMesh());
 		mesh.dispose();
 	});
 </script>

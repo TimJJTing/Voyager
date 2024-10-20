@@ -24,3 +24,15 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## To-do list
+
+- [x] implement scene/canvas component
+- [x] implement mesh component
+- [x] add some mock data
+- [ ] implement frustum culler
+- [ ] implement mouse interaction
+- [ ] use real dataset
+- [ ] use DuckDB for dataset loading and searching
+- [ ] add some basic interface for showing star detail data
+- [ ] deploy onto a hosting service provider

@@ -147,11 +147,15 @@ export function getRenderer() {
 }
 
 /**
- * Pipeline order: update() -> render()
+ * Function pipelines to run in a render cycle:
+ * updatePipeline: update()
+ * renderPipeline: render()
+ * cameraPipeline: only runs when camera position changes
  */
 export function setFuncPipelines() {
 	const renderPipeline = new Map();
 	const updatePipeline = new Map();
+	const cameraPipeline = new Map();
 	let funcPipelines = writable({
 		/**
 		 * Pipeline to run in update()
@@ -185,6 +189,22 @@ export function setFuncPipelines() {
 		 * @param {any} key
 		 */
 		deregisterRenderFunc: (key) => renderPipeline.delete(key),
+		/**
+		 * Pipeline to run on camera changes position
+		 * @type {Map<string, function>}
+		 */
+		cameraPipeline,
+		/**
+		 * register a new render function to the pipeline
+		 * @param {any} key
+		 * @param {function} func
+		 */
+		registerCameraFunc: (key, func) => cameraPipeline.set(key, func),
+		/**
+		 * deregister a render function to the pipeline
+		 * @param {any} key
+		 */
+		deregisterCameraFunc: (key) => cameraPipeline.delete(key),
 	});
 	setContext('funcPipelines', funcPipelines);
 	return funcPipelines;

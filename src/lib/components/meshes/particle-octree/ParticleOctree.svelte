@@ -29,7 +29,6 @@
 	 * @type {undefined|FrustumCuller}
 	 */
 	let frustumCuller = undefined;
-
 	/**
 	 * @type {import('three').Mesh|undefined}
 	 */
@@ -73,15 +72,18 @@
 			// if ($option.cameraHelperEnabled) scene.add(frustumCuller.getCameraHelper());
 			// if ($option.labelsEnabled) scene.add(frustumCuller.getLabels());
 
+			// compute for the first render
 			frustumCuller.cull();
-			$funcPipelines.registerUpdateFunc(id, () => {
+			
+			// make frustumCamera to stay in sync
+			$funcPipelines.registerCameraFunc(id, () => {
 				frustumCuller.cull();
 			});
 		}
 	});
 
 	onDestroy(() => {
-		$funcPipelines.deregisterUpdateFunc(id);
+		$funcPipelines.deregisterCameraFunc(id);
 		if (frustumCuller) {
 			$scene?.remove(frustumCuller.getHDMesh());
 			$scene?.remove(frustumCuller.getSDMesh());

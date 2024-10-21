@@ -78,8 +78,10 @@
 		dispatch('orbitCtrlEnd');
 	};
 	const onOrbitCtrlChange = (event) => {
-		// make frustumCamera to stay in sync
-		// frustumCuller.cull(clusterColors, clusterId, $filtered.data);
+		// execute render functions
+		$funcPipelines.cameraPipeline?.forEach((cameraFunc) => {
+			cameraFunc();
+		});
 		// $distanceToTarget = Math.round(controls.getDistance());
 		// $distanceToCenter = Math.round(camera.position.distanceTo(origin));
 		// 0.8 <= pass_strength <= 0.5 prevent scene from being too bright when the camera approaches the center of the universe
@@ -215,8 +217,6 @@
 
 				// points.update();
 
-				// frustumCuller.cull();
-
 				// TWEEN.update();
 
 				// if ($option.debugModeEnabled && stats) stats.update();
@@ -246,9 +246,6 @@
 				$controls.removeEventListener('start', onOrbitCtrlStart);
 				$controls.removeEventListener('end', onOrbitCtrlEnd);
 			}
-			// if (frustumCuller) {
-			// 	frustumCuller.dispose();
-			// }
 			// if (labelSprites) {
 			// 	labelSprites.dispose();
 			// }

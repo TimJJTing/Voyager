@@ -29,5 +29,5 @@
 <Scene>
 	<Mesh mesh={particles} />
 	<Mesh mesh={star} postprocess />
-	<ParticleOctree {positions} {groups} {ids} />
+	<ParticleOctree {positions} {groups} {ids} postprocess/>
 </Scene>

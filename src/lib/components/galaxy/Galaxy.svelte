@@ -26,7 +26,7 @@
 	
 </script>
 
-<Scene>
+<Scene stats>
 	<Mesh mesh={particles} />
 	<Mesh mesh={star} postprocess />
 	<ParticleOctree {positions} {groups} {ids} postprocess/>

@@ -7,6 +7,7 @@
 <script>
 	import * as THREE from 'three';
 	import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+	import Stats from 'three/addons/libs/stats.module.js';
 	import { onMount, onDestroy, createEventDispatcher } from 'svelte';
 	import { SelectiveBloom, addLighting } from '$lib/utils';
 	import { browser } from '$app/environment';
@@ -19,13 +20,23 @@
 		setSceneReady,
 		setMouse,
 		setRaycaster,
-		setPostprocessor,
+		setPostprocessor
 	} from './context';
+
+	/**
+	 * @type {boolean}
+	 */
+	export let stats = false;
 
 	/**
 	 * @type {HTMLDivElement}
 	 */
 	let container;
+
+	/**
+	 * @type {Stats|undefined}
+	 */
+	let statsElement;
 
 	/**
 	 * @type {boolean}
@@ -111,6 +122,19 @@
 		}
 	};
 
+	const useStats = (enable, container) => {
+		if (container && enable && !statsElement) {
+			statsElement = new Stats();
+			container.appendChild(statsElement.dom);
+			statsElement.dom.classList.add('stats');
+		} else if (container && !enable && statsElement) {
+			container.removeChild(statsElement.dom);
+			statsElement = undefined;
+		}
+	};
+
+	$: useStats(stats, container);
+
 	onMount(() => {
 		if (browser) {
 			const init = () => {
@@ -174,8 +198,7 @@
 			};
 
 			const render = () => {
-				
-				if($postprocessor) {
+				if ($postprocessor) {
 					$postprocessor.render();
 				} else {
 					$renderer?.render($scene, $camera);
@@ -219,7 +242,9 @@
 
 				// TWEEN.update();
 
-				// if ($option.debugModeEnabled && stats) stats.update();
+				if (stats && statsElement) {
+					statsElement.update();
+				}
 
 				// if (mouseInteraction) {
 				// 	handleMouseInteraction(raycaster, camera, mouse);
@@ -258,3 +283,10 @@
 		<slot />
 	{/if}
 </div>
+
+<style lang="scss">
+	:global(.stats) {
+		left: unset !important;
+		right: 0 !important;
+	}
+</style>

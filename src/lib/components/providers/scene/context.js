@@ -146,11 +146,33 @@ export function getRenderer() {
 	return getContext('renderer');
 }
 
+/**
+ * Pipeline order: update() -> render()
+ */
 export function setFuncPipelines() {
 	const renderPipeline = new Map();
 	const updatePipeline = new Map();
 	let funcPipelines = writable({
-		/** @type {Map<string, function>} */
+		/**
+		 * Pipeline to run in update()
+		 * @type {Map<string, function>}
+		 */
+		updatePipeline,
+		/**
+		 * register a new update function to the pipeline
+		 * @param {any} key
+		 * @param {function} func
+		 */
+		registerUpdateFunc: (key, func) => updatePipeline.set(key, func),
+		/**
+		 * deregister a update function to the pipeline
+		 * @param {any} key
+		 */
+		deregisterUpdateFunc: (key) => updatePipeline.delete(key),
+		/**
+		 * Pipeline to run in render()
+		 * @type {Map<string, function>}
+		 */
 		renderPipeline,
 		/**
 		 * register a new render function to the pipeline
@@ -163,19 +185,6 @@ export function setFuncPipelines() {
 		 * @param {any} key
 		 */
 		deregisterRenderFunc: (key) => renderPipeline.delete(key),
-		/** @type {Map<string, function>} */
-		updatePipeline,
-		/**
-		 * register a new update function to the pipeline
-		 * @param {any} key
-		 * @param {function} func
-		 */
-		registerUpdateFunc: (key, func) => updatePipeline.set(key, func),
-		/**
-		 * deregister a update function to the pipeline
-		 * @param {any} key
-		 */
-		deregisterUpdateFunc: (key) => updatePipeline.delete(key)
 	});
 	setContext('funcPipelines', funcPipelines);
 	return funcPipelines;

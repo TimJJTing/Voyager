@@ -1,7 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import {
-		RAYCAST_LAYER,
 		getScene,
 		getCamera,
 		getFuncPipelines,
@@ -24,7 +23,7 @@
 	/**
 	 * @type {undefined|import('sparse-octree').PointOctree<any>}
 	 */
-	let octree = undefined;
+	export let octree = undefined;
 
 	/**
 	 * @type {undefined|FrustumCuller}
@@ -43,9 +42,6 @@
 	 * @type {import('three').Mesh|undefined}
 	 */
 	let fcLDParticles;
-
-	/** allow binding for accessing octree */
-	export const getTree = () => octree;
 
 	let id = {};
 	let scene = getScene();
@@ -78,10 +74,10 @@
 			// if ($option.labelsEnabled) scene.add(frustumCuller.getLabels());
 
 			frustumCuller.cull();
+			$funcPipelines.registerUpdateFunc(id, () => {
+				frustumCuller.cull();
+			});
 		}
-		// $funcPipelines.registerUpdateFunc(id, () => {
-		// 	mesh.update();
-		// });
 	});
 
 	onDestroy(() => {

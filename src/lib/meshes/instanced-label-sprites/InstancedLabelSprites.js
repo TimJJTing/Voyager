@@ -119,21 +119,6 @@ export class InstancedLabelSprites {
 					let textX = (x + 0.5) * stepW;
 					let textY = (amountH - y - 1 + 0.5) * stepH;
 					ctx.fillText(this.labels[counter], textX, textY);
-
-					// const avatar = createAvatar(personas, {
-					// 	seed: this.labels[counter],
-					// }).toDataUriSync();
-					// const image = new Image(12, 12); // Using optional size for image
-					// image.src = avatar;
-					// image.onload = () => {
-					// 	// @ts-ignore
-					// 	ctx.drawImage(image, textX, textY);
-					// }; // Draw when image has loaded
-
-					// ctx.strokeStyle = '#26ee2c';
-					// ctx.lineWidth = 3;
-					// ctx.strokeRect(x * stepW + 4, y * stepH + 4, stepW - 8, stepH - 8);
-
 					counter++;
 				}
 			}

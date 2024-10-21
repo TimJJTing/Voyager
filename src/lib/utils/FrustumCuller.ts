@@ -305,7 +305,7 @@ export class FrustumCuller {
 	 * Culls the octree.
 	 */
 
-	cull(clusterColors?: [][], focusCluster?: number, filterArray?: number[]): void {
+	cull(groupColors?: [][], focusGroup?: number, filterArray?: number[]): void {
 		const hdMesh = this.hdMesh;
 		const sdMesh = this.sdMesh;
 		const ldMesh = this.ldMesh;
@@ -359,7 +359,7 @@ export class FrustumCuller {
 
 							// check if the point is not filtered out
 							//@ts-ignore
-							let visible = focusCluster === undefined || focusCluster === x.data.data[pidx].cluster;
+							let visible = focusGroup === undefined || focusGroup === x.data.data[pidx].group;
 							if (filterArray) {
 								//@ts-ignore
 								visible = visible && filterArray[x.data.data[pidx].index] === 1;
@@ -374,7 +374,7 @@ export class FrustumCuller {
 								);
 								tempObj.updateMatrix();
 								//@ts-ignore
-								let [r, g, b] = clusterColors ? clusterColors[x.data.data[pidx].cluster] : [255, 255, 255];
+								let [r, g, b] = groupColors ? groupColors[x.data.data[pidx].group] : [255, 255, 255];
 								tempColor.setStyle(`rgb(${r},${g},${b})`);
 
 								// if it is within the hd distance and not exceeding the max count

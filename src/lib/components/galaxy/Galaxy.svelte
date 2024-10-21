@@ -4,7 +4,7 @@
 	import { Particles } from '$lib/meshes/particles';
 	// import { Planet } from '$lib/meshes/planet';
 	import { Star } from '$lib/meshes/star';
-	import { Mesh } from '$lib/components/mesh';
+	import { Mesh } from '$lib/components/meshes';
 	import { processData, groupColors } from '$lib/utils';
 
 	let data = [];
@@ -26,6 +26,6 @@
 </script>
 
 <Scene>
-	<Mesh mesh={particles} postprocess/>
+	<Mesh mesh={particles} />
 	<Mesh mesh={star} postprocess/>
 </Scene>

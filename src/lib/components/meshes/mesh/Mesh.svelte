@@ -6,6 +6,7 @@
 		getFuncPipelines,
 		getPostprocessor
 	} from '$lib/components/providers/scene';
+	import { usePostProcessor, useRaycast } from '../utils';
 
 	/**
 	 * mesh to add into scene
@@ -30,17 +31,8 @@
 	let funcPipelines = getFuncPipelines();
 	let postprocessor = getPostprocessor();
 
-	$: if (raycast) {
-		mesh.getMesh().layers.enable(RAYCAST_LAYER);
-	} else {
-		mesh.getMesh().layers.disable(RAYCAST_LAYER);
-	}
-
-	$: if (postprocess) {
-		$postprocessor?.add(mesh.getMesh());
-	} else {
-		$postprocessor?.remove(mesh.getMesh());
-	}
+	$: useRaycast(raycast, mesh?.getMesh());
+	$: usePostProcessor(postprocess, $postprocessor, mesh?.getMesh());
 
 	onMount(() => {
 		// add mesh into scene
@@ -54,7 +46,6 @@
 
 	onDestroy(() => {
 		$funcPipelines.deregisterUpdateFunc(id);
-		$postprocessor?.remove(mesh.getMesh());
 		$scene?.remove(mesh.getMesh());
 		mesh.dispose();
 	});

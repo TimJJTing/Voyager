@@ -1,16 +1,15 @@
-// @ts-nocheck
 import * as THREE from 'three';
 import { PointOctree } from 'sparse-octree';
 
 /**
- * Octree for points for rendering optimization
+ * Build ointOctree for points for rendering optimization
  * @param {*} scene
  * @param {any[]} positions
- * @param {any[]} cluster
- * @param {any[]} plates
- * @returns octree
+ * @param {any[]} groups
+ * @param {any[]} ids
+ * @returns {PointOctree<any>} octree
  */
-export const addOctree = (scene, positions, cluster, plates) => {
+export const buildPointOctree = (scene, positions, groups, ids) => {
 	const v = new THREE.Vector3();
 	const bbox = new THREE.Box3();
 	bbox.setFromObject(scene);
@@ -20,8 +19,8 @@ export const addOctree = (scene, positions, cluster, plates) => {
 	for (let j = 0, l = positions.length; j < l; j += 3) {
 		octree.set(v.fromArray(positions, j), {
 			index: j / 3,
-			cluster: cluster[j / 3],
-			plate: plates[j / 3],
+			group: groups[j / 3],
+			id: ids[j / 3]
 		});
 	}
 	return octree;

@@ -1,1 +1,1 @@
-export { default as Galaxy } from './galaxy.svelte';
+export { default as Galaxy } from './Galaxy.svelte';

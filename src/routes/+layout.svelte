@@ -1,14 +1,21 @@
 <script>
 	/** @type {import('./$types').PageData} */
 	// export let data;
+
+	import { base } from '$app/paths';
+	import { DuckDB } from '$lib/components/providers/duckdb';
+	/** @type {{name: string, url: string}[]} */
+	let connections = [{ name: 'gaia.parquet', url: `${base}/gaia.parquet` }];
 </script>
 
-<div id="app">
-	<slot />
+<div class="app">
+	<DuckDB {connections}>
+		<slot />
+	</DuckDB>
 </div>
 
 <style>
-	#app {
+	.app {
 		width: 100vw;
 		height: 100vh;
 	}

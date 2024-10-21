@@ -7,15 +7,13 @@
 	import { Mesh, ParticleOctree } from '$lib/components/meshes';
 	import { processData, groupColors } from '$lib/utils';
 
-	let data = [];
-	let n = 1000,
-		n2 = n / 2; // particles spread in the cube
-	for (let i = 0; i < 2000; i++) {
+	export let data = [];
+	for (let i = 0; i < data.length; i++) {
 		let point = {};
 		// positions
-		point['x'] = Math.random() * n - n2;
-		point['y'] = Math.random() * n - n2;
-		point['z'] = Math.random() * n - n2;
+		point['x'] = data[i].x;
+		point['y'] = data[i].y;
+		point['z'] = data[i].z;
 		point['group'] = 0;
 		point['id'] = i.toString();
 		data.push(point);

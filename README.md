@@ -30,9 +30,10 @@ You can preview the production build with `npm run preview`.
 - [x] implement scene/canvas component
 - [x] implement mesh component
 - [x] add some mock data
-- [ ] implement frustum culler
-- [ ] implement mouse interaction
+- [x] implement frustum culler
 - [ ] use real dataset
-- [ ] use DuckDB for dataset loading and searching
+- [ ] use DuckDB for dataset loading
+- [ ] use DuckDB for dataset searching
+- [ ] implement mouse interaction
 - [ ] add some basic interface for showing star detail data
 - [ ] deploy onto a hosting service provider

@@ -5,7 +5,7 @@
 	import { base } from '$app/paths';
 	import { DuckDB } from '$lib/components/providers/duckdb';
 	/** @type {{name: string, url: string}[]} */
-	let connections = [{ name: 'gaia.parquet', url: `${base}/gaia.parquet` }];
+	let connections = [{ name: 'gaia030.parquet', url: `${base}/gaia030.parquet` }];
 </script>
 
 <div class="app">

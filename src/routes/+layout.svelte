@@ -16,11 +16,17 @@
 
 <style>
 	.app {
+		margin: 0;
+		padding: 16px;
 		width: 100vw;
 		height: 100vh;
+		background-color: black;
+		color: white;
+		box-sizing: border-box;
 	}
 	:global(body) {
 		margin: 0;
 		padding: 0;
+		background-color: black;
 	}
 </style>

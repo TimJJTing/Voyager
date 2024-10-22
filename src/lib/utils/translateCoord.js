@@ -1,4 +1,4 @@
-const distanceFactor = 1;
+const distanceFactor = 8;
 
 /**
  * Translate coordinates from the original to the visualized

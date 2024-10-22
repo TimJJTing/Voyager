@@ -31,8 +31,9 @@ You can preview the production build with `npm run preview`.
 - [x] implement mesh component
 - [x] add some mock data
 - [x] implement frustum culler
-- [ ] use real dataset
-- [ ] use DuckDB for dataset loading
+- [x] use real dataset
+- [x] use DuckDB for dataset loading
+- [ ] use web worker or WASM to improve tree-building performance
 - [ ] use DuckDB for dataset searching
 - [ ] implement mouse interaction
 - [ ] add some basic interface for showing star detail data
